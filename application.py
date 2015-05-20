@@ -9,11 +9,12 @@ from flask import request
 from flask import Flask
 application = Flask(__name__)
 
-# twilio credentials here, test code.  should move to env variable
+# twilio credentials, phone numbers, etc.
 ACCOUNT_SID = os.environ.get("TWILIO_SID")
 AUTH_TOKEN = os.environ.get("TWILIO_TOKEN")
 DAN_NUMBER = os.environ.get("DAN_NUMBER")
 RENS_NUMBER = os.environ.get("RENS_NUMBER")
+SITE_DOMAIN = os.environ.get("SITE_DOMAIN")
 
 @application.route('/')
 def home():
@@ -51,7 +52,7 @@ def _make_call(name, to_phone_number):
  
   call = client.calls.create(to=to_phone_number,
                       from_=DAN_NUMBER,
-                      url="http://jana-dtest-jm3pwmjveb.elasticbeanstalk.com/message?first_name="+name)    
+                      url="http://" + SITE_DOMAIN + "/message?first_name="+name)    
 
 
 def _top_reddit_post():
